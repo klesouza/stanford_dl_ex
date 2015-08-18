@@ -2,9 +2,12 @@ import numpy as np
 from scipy import optimize
 from read_mnist import *
 from logistic_regression import *
+import os
 
-path = 'ex1\\python_ex\\mnist\\'
-(test_x,test_y) = get_labeled_data(path+'t10k-images-idx3-ubyte.gz', path+'t10k-labels-idx1-ubyte.gz',[0,1])
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
+
+path = 'mnist/'
+(test_x,test_y) = get_labeled_data(os.path.join(path,'t10k-images-idx3-ubyte.gz'), os.path.join(path,'t10k-labels-idx1-ubyte.gz'),[0,1])
 (train_x,train_y) = get_labeled_data(path+'train-images-idx3-ubyte.gz', path+'train-labels-idx1-ubyte.gz',[0,1])
 
 m = train_x.shape[0]

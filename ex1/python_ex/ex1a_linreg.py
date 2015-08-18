@@ -2,8 +2,11 @@ import numpy as np
 from scipy import optimize
 from matplotlib import pyplot as plt
 from linear_regression import *
+import os
+
+os.chdir(os.path.dirname(os.path.realpath(__file__)))
 		
-data = np.loadtxt('ex1\python_ex\housing.data')
+data = np.loadtxt('housing.data')
 data = np.random.permutation(data)
 data = np.insert(data,0,np.ones(data.shape[0]),axis=1)
 a = np.array([[1,2,1],[3,4,2],[5,6,1],[7,8,2]])
@@ -26,5 +29,8 @@ pred_test = predict(opt.x, test_x[sorting])
 test_error = pred_test - test_y[sorting]
 print 'Test error:', math.sqrt(np.mean(test_error**2))
 
-plt.plot(range(106),pred_test,'rx', range(106),test_y[sorting].flatten(),'g^')
-plt.show()
+try:
+    plt.plot(range(106),pred_test,'rx', range(106),test_y[sorting].flatten(),'g^')
+    plt.show()
+except:
+    pass
