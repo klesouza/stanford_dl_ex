@@ -2,16 +2,23 @@ import numpy as np
 import math
 
 def predict(theta, X):
-	return np.exp(X.dot(theta.T))/np.sum([np.exp(X.dot(thetaj.T)) for thetaj in theta])
-
-def objective_func(theta, X, y):
+	predicted = []
+	print theta.shape
 	for i in range(X.shape[0]):
+		predicted.append([])
+		print theta.shape
 		for k in range(theta.shape[0]):
-			(k == y[i])*np.log(theta[k], predict(X[i:,:]))
-	h = predict(theta, X)
-	print h.shape, y.shape
-	return -np.sum(y.flatten()*np.log(h) + (1.-y.flatten())*np.log(1. -h))
+			print k
+			x = X[i].reshape(1, X[i].shape[0])
+			t = theta[k].reshape(1,theta[k].shape[0])
+			predicted[i].append(np.exp(x.dot(t.T))/np.exp(x.dot(theta.T)).sum())
+	return np.array(predicted)
+
+def objective_func(theta, x, y):
+	print theta.shape, x.shape, y.shape
+	return np.log(predict(theta, x))[np.arange(x.shape[0], y)].sum()
 	
+
 def gradient(theta, X, y):
-	pred = predict(X, y)
-	return np.array([(X[:,j]*(pred - y.flatten())).sum() for j in range(theta.shape[0])])
+	pred = predict(theta, X)
+	return X.T.dot((pred == pred[np.arange(10,), y].reshape(10,1)).astype(float) - pred).T

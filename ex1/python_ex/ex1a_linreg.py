@@ -2,6 +2,7 @@ import numpy as np
 from scipy import optimize
 from matplotlib import pyplot as plt
 from linear_regression import *
+import grad_check
 import os
 
 os.chdir(os.path.dirname(os.path.realpath(__file__)))

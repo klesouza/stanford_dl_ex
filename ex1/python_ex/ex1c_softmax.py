@@ -12,12 +12,18 @@ m = train_x.shape[0]
 n = train_x.shape[1]
 num_classes = 10
 theta = np.random.rand(num_classes-1,n)*0.001
+print train_x.shape,train_y.shape
 pass
-# import math
-# opt = optimize.minimize(objective_func, theta, args=(train_x,train_y), options={'maxiter':200})
-# train_error = predict(opt.x,train_x)==train_y
-# print 'Training error:', train_error.sum()/train_y.shape[0]
-# 
-# pred_test = predict(opt.x, test_x)
-# test_error = pred_test == test_y
-# print 'Test error:', test_error.sum()/test_y.shape[0]
+# predict(theta, train_x)
+# pass
+import math
+print theta.shape
+opt = optimize.fmin_bfgs(objective_func, theta, gradient, args=(train_x,train_y))
+print 'minimized'
+print opt.x.shape
+train_error = predict(opt.x,train_x)==train_y
+print 'Training error:', train_error.sum()/train_y.shape[0]
+
+pred_test = predict(opt.x, test_x)
+test_error = pred_test == test_y
+print 'Test error:', test_error.sum()/test_y.shape[0]

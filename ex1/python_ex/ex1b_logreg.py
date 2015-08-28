@@ -14,6 +14,7 @@ m = train_x.shape[0]
 n = train_x.shape[1]
 
 theta = np.array(np.random.permutation(range(1,n+1)), dtype='float')*0.001
+
 import math
 opt = optimize.minimize(objective_func, theta, args=(train_x,train_y), options={'maxiter':200})
 train_error = predict(opt.x,train_x)==train_y
